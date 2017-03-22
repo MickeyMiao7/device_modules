@@ -59,11 +59,14 @@ ssize_t onebyte_write(struct file *filep, const char *buf, size_t count, loff_t 
 	return 1;
      }
      else{
+	// When there are more than 1 bytes written,
+	// only the first byte will be written.
 	copy_from_user(onebyte_data, buf, 1);
 	return -ENOSPC;
      }
           
 }
+
 static int onebyte_init(void)
 {
      int result;
@@ -89,6 +92,7 @@ static int onebyte_init(void)
      printk(KERN_ALERT "This is a onebyte device module\n");
      return 0;
 }
+
 static void onebyte_exit(void)
 {
      // if the pointer is pointing to something
