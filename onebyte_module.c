@@ -65,7 +65,6 @@ ssize_t onebyte_write(struct file *filep, const char *buf, size_t count, loff_t 
 	// When there are more than 1 bytes written,
 	// only the first byte will be written.
 	copy_from_user(onebyte_data, buf, 1);
-	*f_pos += 1;
 
 	// Error message when more than 1 bytes
 	return -ENOSPC;
