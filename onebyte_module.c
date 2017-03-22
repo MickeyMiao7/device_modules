@@ -42,7 +42,9 @@ ssize_t onebyte_read(struct file *filep, char *buf, size_t
 		count, loff_t *f_pos)
 {    
      if (*f_pos == 0 ){
+	// Copy the data from kernel space to user space
 	copy_to_user(buf, onebyte_data, 1);
+	// Forward the position pointer
 	*f_pos += 1;
 	return 1;
      }
@@ -54,6 +56,7 @@ ssize_t onebyte_read(struct file *filep, char *buf, size_t
 ssize_t onebyte_write(struct file *filep, const char *buf, size_t count, loff_t *f_pos)
 {
      if (*f_pos == 0 ){
+	// Copy the data from user space to kernel space
 	copy_from_user(onebyte_data, buf, 1);
 	*f_pos += 1;
 	return 1;
@@ -62,6 +65,9 @@ ssize_t onebyte_write(struct file *filep, const char *buf, size_t count, loff_t 
 	// When there are more than 1 bytes written,
 	// only the first byte will be written.
 	copy_from_user(onebyte_data, buf, 1);
+	*f_pos += 1;
+
+	// Error message when more than 1 bytes
 	return -ENOSPC;
      }
           
