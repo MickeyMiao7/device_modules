@@ -1,1 +1,1 @@
-obj-m := onebyte_module.o
+obj-m := four.o
