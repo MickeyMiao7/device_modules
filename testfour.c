@@ -6,26 +6,31 @@
 
 int main(){
     int i;
-    FILE *fp = fopen("/dev/four", "w");
-    // FILE *fp = fopen("temp.txt", "w");
-    // const char a = 'a';
-    const char b = 'b';
-    const char c = 'c';
+    FILE *fp = fopen("file.txt", "w");
 
 
     if(fp == NULL)
         printf("device open error");
 
+//     char *a = (char*) malloc(sizeof(char) * 4 * onemillion + 1);
+//     memset(a, 'a', sizeof(char) * 4 * onemillion + 1);
+//     fprintf(fp, "%s", a);
+// 
     char *a = (char*) malloc(sizeof(char) * 1 * onemillion);
     memset(a, 'a', sizeof(char) * 1 * onemillion);
     fprintf(fp, "%s", a);
-    //for(i = 0; i < 1 * onemillion; i++)
-    //    fprintf(fp, "%c", a);
-    //for(i = 0; i < 3 * onemillion; i++)
-    //    fprintf(fp, "%c", b);
-    //for(i = 0; i < 1 * onemillion; i++)
-    //    fprintf(fp, "%c", c);
+
+    char *b = (char*) malloc(sizeof(char) * 3 * onemillion);
+    memset(b, 'b', sizeof(char) * 3 * onemillion);
+    fprintf(fp, "%s", b);
+
+    char *c = (char*) malloc(sizeof(char) * 1 * onemillion);
+    memset(c, 'c', sizeof(char) * 1 * onemillion);
+    fprintf(fp, "%s", c);
+
     fclose(fp);
     free(a);
+    free(b);
+    free(c);
     return 0;
 }
