@@ -83,6 +83,7 @@ long four_ioctl(struct file *filp, unsigned int cmd, unsigned long arg) {
 
         case SCULL_WRITE:
             copy_from_user(dev_msg, user_msg, DEV_MSG_SIZE);
+            printk(KERN_ALERT "DEBUG: dev_msg is :%s\n", dev_msg);
             retval = DEV_MSG_SIZE;
             break;
 
@@ -230,7 +231,9 @@ static void four_exit(void)
      if (four_data) {
           // free the memory and assign the pointer to NULL
           kfree(four_data);
-	  four_data = NULL;
+          kfree(dev_msg);
+          four_data = NULL;
+          dev_msg = NULL;
      }    
      // unregister the device
      unregister_chrdev(MAJOR_NUMBER, "four");
