@@ -77,6 +77,7 @@ ssize_t four_write(struct file *filep, const char *buf, size_t count, loff_t *f_
         copy_from_user(four_data + (int)*f_pos, buf, count);
         (*f_pos) += count;
         total = *f_pos;
+        printk(KERN_ALERT "4Mb device: write %d bytes into /dev/four\n", count);
         return count;
     }
     else if ((*f_pos) < SIZE){
@@ -85,9 +86,11 @@ ssize_t four_write(struct file *filep, const char *buf, size_t count, loff_t *f_
         copy_from_user(four_data + (int)*f_pos, buf, left);
         *f_pos = SIZE;
         total = *f_pos;
+        printk(KERN_ALERT "4Mb device: write %d bytes into /dev/four\n", left);
         return left;
     }
     else
+        printk(KERN_ALERT "4Mb device: No Space Left");
         return -ENOSPC;
           
 }

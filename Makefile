@@ -1,1 +1,1 @@
-obj-m := four.o
+obj-m := llseek.o

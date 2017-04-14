@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
-//needed for IO things. Attention that this is different from kernel mode int lcd;
+//needed for IO things. Attention that this is different from kernel mode 
+
+int lcd;
 #define SCULL_IOC_MAGIC 'k'
 #define SCULL_HELLO _IO(SCULL_IOC_MAGIC, 1)
 void test()
@@ -19,8 +21,8 @@ void test()
 
 int main(int argc, char **argv)
 {
-    lcd = open("/dev/scull", O_RDWR); 
-    if (lcd == ‐1) {
+    lcd = open("/dev/scull", O_RDWR);
+    if (lcd == -1) {
         perror("unable to open lcd"); 
         exit(EXIT_FAILURE);
     } 

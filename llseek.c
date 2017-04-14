@@ -50,7 +50,7 @@ loff_t four_llseek(struct file *filep, loff_t off, int whence)
             break;
         case 2:
             // SEEK_END
-            newops = SIZE + off;
+            newops = total + off;
             break;
         default:
             newops = -1;
@@ -105,7 +105,7 @@ ssize_t four_write(struct file *filep, const char *buf, size_t count, loff_t *f_
     if ((*f_pos) + count <= SIZE){
         copy_from_user(four_data + (int)*f_pos, buf, count);
         (*f_pos) += count;
-        total = *f_pos;
+        total = *f_pos > total ? *f_pos : total;
         printk(KERN_ALERT "4Mb device: write %d bytes into /dev/four\n", count);
         return count;
     }
@@ -114,7 +114,7 @@ ssize_t four_write(struct file *filep, const char *buf, size_t count, loff_t *f_
         left = (int)SIZE - (int)*f_pos;
         copy_from_user(four_data + (int)*f_pos, buf, left);
         *f_pos = SIZE;
-        total = *f_pos;
+        total = *f_pos > total ? *f_pos : total;
         printk(KERN_ALERT "4Mb device: write %d bytes into /dev/four\n", left);
         return left;
     }
