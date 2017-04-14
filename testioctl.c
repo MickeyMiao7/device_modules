@@ -19,7 +19,7 @@ void test()
     int k, i, sum; 
     char s[3];
     memset(s, '2', sizeof(s)); 
-    printf("maximum size of dev_msg is set to: %d", DEV_MSG_SIZE);
+    printf("maximum size of dev_msg is set to: %d\n", DEV_MSG_SIZE);
     printf("test begin!\n");
 
     printf("test file write:\n");
