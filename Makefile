@@ -1,1 +1,1 @@
-obj-m := llseek.o
+obj-m := ioctl.o
